@@ -25,8 +25,8 @@
       border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s;
-      animation: hintAnimation 1.5s infinite; /* Анимация намека */
       user-select: none; /* Запретить выделение текста */
+      animation: hintAnimation 1.5s infinite; /* Анимация намека */
     }
     
     .panel:hover {
@@ -84,6 +84,11 @@
       
       var panelElement = document.getElementById("panel");
       panelElement.addEventListener("click", increaseDebt);
+      
+      panelElement.style.animation = "none"; // Остановка анимации намека при загрузке страницы
+      setTimeout(function() {
+        panelElement.style.animation = "hintAnimation 1.5s infinite"; // Запуск анимации намека через 1 секунду
+      }, 1000);
     });
   </script>
 </head>
