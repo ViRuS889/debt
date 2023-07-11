@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Долг Темырлана</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       background-color: #1f1f1f;
       color: #ffffff;
       font-family: Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
@@ -32,28 +34,32 @@
     h1 {
       font-size: 36px;
       margin: 0;
+      text-align: center;
     }
   </style>
   <script>
     var debt = 0;
     var increase = 0;
     var debtElement;
+    var increaseElement;
     var intervalId;
     
     function updateDebt() {
       var timestamp = Math.floor(Date.now() / 1000); // Текущее время в секундах
-      debt = Math.round(55e6 * (timestamp - 1683011265)) + increase;
+      debt = Math.round(55e6 * ((timestamp - 1683011265) + increase));
       debtElement.textContent = debt.toLocaleString();
+      increaseElement.textContent = increase.toLocaleString();
     }
     
     function increaseDebt(event) {
-      increase += Math.round(debt * 0.000001);
+      increase += 1;
       updateDebt();
       event.stopPropagation(); // Предотвращение всплытия события
     }
     
     document.addEventListener("DOMContentLoaded", function() {
       debtElement = document.getElementById("debt");
+      increaseElement = document.getElementById("increase");
       updateDebt();
       intervalId = setInterval(updateDebt, 1000); // Обновлять значение каждую секунду
       
@@ -65,6 +71,9 @@
 <body>
   <div id="panel" class="panel">
     <h1>Долг Темырлана: <span id="debt"></span></h1>
+  </div>
+  <div id="increase" class="panel">
+    <h1><span></span></h1>
   </div>
 </body>
 </html>
