@@ -25,6 +25,7 @@
       border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s;
+      animation: hintAnimation 1.5s infinite; /* Анимация намека */
       user-select: none; /* Запретить выделение текста */
     }
     
@@ -34,12 +35,25 @@
     
     .panel:active {
       transform: scale(0.95); /* Анимация нажатия */
+      animation: none; /* Остановка анимации намека после нажатия */
     }
     
     h1 {
       font-size: 36px;
       margin: 0;
       text-align: center;
+    }
+    
+    @keyframes hintAnimation {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
     }
   </style>
   <script>
