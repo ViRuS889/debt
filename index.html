@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Долг Темырлана</title>
+  <style>
+    body {
+      background-color: #1f1f1f;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    
+    h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+  </style>
+  <script>
+    function updateDebt() {
+      var timestamp = Math.floor(Date.now() / 1000); // Текущее время в секундах
+      var debt = Math.round(55e6 * (timestamp - 1683011265));
+      
+      var debtElement = document.getElementById("debt");
+      debtElement.textContent = debt.toLocaleString();
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      updateDebt();
+      setInterval(updateDebt, 1000); // Обновлять значение каждую секунду
+    });
+  </script>
+</head>
+<body>
+  <h1>Долг Темырлана: <span id="debt"></span></h1>
+</body>
+</html>
