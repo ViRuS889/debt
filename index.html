@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      background: url(bg.jpg) no-repeat
       background-color: #1f1f1f;
       color: #ffffff;
       font-family: Arial, sans-serif;
@@ -26,6 +27,7 @@
       cursor: pointer;
       transition: background-color 0.3s;
       user-select: none; /* Запретить выделение текста */
+      animation: hintAnimation 1.5s infinite; /* Анимация намека */
     }
     
     .panel:hover {
@@ -34,31 +36,25 @@
     
     .panel:active {
       transform: scale(0.95); /* Анимация нажатия */
+      animation: none; /* Остановка анимации намека после нажатия */
     }
     
-    .debt-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .debt-value {
+    h1 {
       font-size: 36px;
       margin: 0;
       text-align: center;
     }
     
-    .increase-panel {
-      background-color: #333333;
-      padding: 20px;
-      border-radius: 10px;
-      margin-left: 10px;
-    }
-    
-    .increase-value {
-      font-size: 24px;
-      margin: 0;
-      text-align: center;
+    @keyframes hintAnimation {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
     }
   </style>
   <script>
@@ -89,17 +85,15 @@
       
       var panelElement = document.getElementById("panel");
       panelElement.addEventListener("click", increaseDebt);
+      
+      panelElement.style.animation = "none"; // Остановка анимации намека при загрузке страницы
+      setTimeout(function() {
+        panelElement.style.animation = "hintAnimation 1.5s infinite"; // Запуск анимации намека через 1 секунду
+      }, 1000);
     });
   </script>
 </head>
 <body>
-  <div class="debt-container">
-    <div id="panel" class="panel">
-      <h1 class="debt-value">Долг Темырлана: <span id="debt"></span></h1>
-    </div>
-    <div class="increase-panel">
-      <h1 class="increase-value"><span id="increase"></span></h1>
-    </div>
+  <div id="panel" class="panel">
+    <h1>Долг Темырлана: <span id="debt"></span></h1>
   </div>
-</body>
-</html>
