@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Адаптивная веб-страница</title>
+  <title>Долг Темырлана</title>
   <style>
     body {
       background-color: #1f1f1f;
@@ -22,6 +22,7 @@
       border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s;
+      user-select: none; /* Запретить выделение текста */
     }
     
     .panel:hover {
@@ -35,25 +36,26 @@
   </style>
   <script>
     var debt = 0;
+    var increase = 0;
+    var debtElement;
+    var intervalId;
     
     function updateDebt() {
       var timestamp = Math.floor(Date.now() / 1000); // Текущее время в секундах
-      debt = Math.round(55e6 * (timestamp - 1683011265));
-      
-      var debtElement = document.getElementById("debt");
+      debt = Math.round(55e6 * (timestamp - 1683011265)) + increase;
       debtElement.textContent = debt.toLocaleString();
     }
     
-    function increaseDebt() {
-      debt += Math.round(debt * 0.002);
-      
-      var debtElement = document.getElementById("debt");
-      debtElement.textContent = debt.toLocaleString();
+    function increaseDebt(event) {
+      increase += Math.round(debt * 0.000001);
+      updateDebt();
+      event.stopPropagation(); // Предотвращение всплытия события
     }
     
     document.addEventListener("DOMContentLoaded", function() {
+      debtElement = document.getElementById("debt");
       updateDebt();
-      setInterval(updateDebt, 1000); // Обновлять значение каждую секунду
+      intervalId = setInterval(updateDebt, 1000); // Обновлять значение каждую секунду
       
       var panelElement = document.getElementById("panel");
       panelElement.addEventListener("click", increaseDebt);
