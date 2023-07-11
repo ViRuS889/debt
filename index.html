@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Долг Темырлана</title>
+  <title>Адаптивная веб-страница</title>
   <style>
     body {
       background-color: #1f1f1f;
@@ -16,15 +16,36 @@
       padding: 0;
     }
     
+    .panel {
+      background-color: #333333;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .panel:hover {
+      background-color: #444444;
+    }
+    
     h1 {
       font-size: 36px;
       margin: 0;
     }
   </style>
   <script>
+    var debt = 0;
+    
     function updateDebt() {
       var timestamp = Math.floor(Date.now() / 1000); // Текущее время в секундах
-      var debt = Math.round(55e6 * (timestamp - 1683011265));
+      debt = Math.round(55e6 * (timestamp - 1683011265));
+      
+      var debtElement = document.getElementById("debt");
+      debtElement.textContent = debt.toLocaleString();
+    }
+    
+    function increaseDebt() {
+      debt += Math.round(debt * 0.002);
       
       var debtElement = document.getElementById("debt");
       debtElement.textContent = debt.toLocaleString();
@@ -33,10 +54,15 @@
     document.addEventListener("DOMContentLoaded", function() {
       updateDebt();
       setInterval(updateDebt, 1000); // Обновлять значение каждую секунду
+      
+      var panelElement = document.getElementById("panel");
+      panelElement.addEventListener("click", increaseDebt);
     });
   </script>
 </head>
 <body>
-  <h1>Долг Темырлана: <span id="debt"></span></h1>
+  <div id="panel" class="panel">
+    <h1>Долг Темырлана: <span id="debt"></span></h1>
+  </div>
 </body>
 </html>
